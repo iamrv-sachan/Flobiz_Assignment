@@ -18,22 +18,21 @@ class MainViewModel @Inject constructor(private val repository: Repository) : Vi
     val newsResponse: LiveData<List<Article>>
         get() = newsResponse1
 
+
     init {
         getAllNews()
     }
 
     private fun getAllNews()
     {
-        Log.i("rajeev","dada")
         viewModelScope.launch {
             repository.getNews().let {
                 if(it.isSuccessful)
                 {
-                    Log.i("rajeev",it.toString())
                     newsResponse1.postValue(it.body()!!.articles)
                 }
                 else{
-                    Log.i("rajeev",it.toString())
+
                     //Log.d("raj", "Error: ${it.code()}")
                 }
             }
